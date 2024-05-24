@@ -5,7 +5,7 @@ class AuthRepositoryImpl extends AuthRepository{
 
   final AuthDataSource dataSource;
   AuthRepositoryImpl(
-    AuthDataSource? dataSource
+    [AuthDataSource? dataSource]
   ) : dataSource = dataSource ?? AuthDataSourceImpl();
 
   @override
@@ -19,8 +19,8 @@ class AuthRepositoryImpl extends AuthRepository{
   }
 
   @override
-  Future<User> register(String name, String email, String password) {
-    return dataSource.register(name, email, password);
+  Future<User> register(String fullName, String email, String password) {
+    return dataSource.register(fullName, email, password);
   }
 
 }
