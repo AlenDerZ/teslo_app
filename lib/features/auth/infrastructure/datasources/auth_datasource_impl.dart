@@ -46,5 +46,4 @@ class AuthDataSourceImpl extends AuthDataSource {
       throw UnimplementedError();
     }
   }
-  
 }
