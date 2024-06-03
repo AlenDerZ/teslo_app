@@ -63,7 +63,7 @@ class RegisterFormNotifier extends StateNotifier<RegisterFormState> {
 
     if(!state.isValid) return;
 
-    print(state);
+    // print(state);
   }
 }
 

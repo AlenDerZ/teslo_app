@@ -25,7 +25,7 @@ class AuthDataSourceImpl extends AuthDataSource {
         'password': password
       });
 
-      final user = UserMapper.userJsonToEntity(response.data);
+      final user = UserMapper.userJsonToEntity(response.data.user);
       return user;
     }catch(e){
       throw WrongCredentials ();
@@ -46,5 +46,4 @@ class AuthDataSourceImpl extends AuthDataSource {
       throw UnimplementedError();
     }
   }
-  
 }
