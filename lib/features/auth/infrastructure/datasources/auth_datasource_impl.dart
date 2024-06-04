@@ -25,10 +25,16 @@ class AuthDataSourceImpl extends AuthDataSource {
         'password': password
       });
 
-      final user = UserMapper.userJsonToEntity(response.data.user);
+      final user = UserMapper.userJsonToEntity(response.data);
+      
       return user;
+    }on DioException catch (e){
+      if(e.response?.statusCode == 401) throw WrongCredentials();
+      if(e.type == DioExceptionType.connectionTimeout) throw ConnectionTimeout();
+
+      throw CustomError('Somthing wrong happend', 1);
     }catch(e){
-      throw WrongCredentials ();
+      throw CustomError('Somthing wrong happend', 1);
     }
   }
 
