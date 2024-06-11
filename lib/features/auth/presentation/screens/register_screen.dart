@@ -75,9 +75,7 @@ class _RegisterForm extends ConsumerWidget {
       padding: const EdgeInsets.symmetric(horizontal: 50),
       child: Column(
         children: [
-          const SizedBox( height: 50 ),
-          Text('Nueva cuenta', style: textStyles.titleMedium ),
-          const SizedBox( height: 50 ),
+          const SizedBox( height: 80 ),
           
           CustomTextFormField(
             label: 'Nombre completo',
@@ -119,7 +117,7 @@ class _RegisterForm extends ConsumerWidget {
             : null,
           ),
           
-          const SizedBox( height: 30 ),
+          const SizedBox( height: 50 ),
           
           SizedBox(
             width: double.infinity,
@@ -133,7 +131,7 @@ class _RegisterForm extends ConsumerWidget {
             )
           ),
           
-          const Spacer( flex: 2),
+          const Spacer( flex: 4),
           
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

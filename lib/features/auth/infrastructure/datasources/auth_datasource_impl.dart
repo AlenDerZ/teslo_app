@@ -50,8 +50,15 @@ class AuthDataSourceImpl extends AuthDataSource {
       });
       final user = UserMapper.userJsonToEntity(response.data);
       return user;
+    }on DioException catch (e){
+      if(e.response?.statusCode == 400){
+        throw CustomError(e.response?.data['message'] ?? 'Formato Invalido');
+      }
+      if(e.type == DioExceptionType.connectionTimeout) throw CustomError('Revisar Conexion a Internet');
+
+      throw Exception();
     }catch(e){
-      throw UnimplementedError();
+      throw Exception();
     }
   }
 }
