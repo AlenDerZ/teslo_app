@@ -1,23 +1,30 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:teslo_app/features/auth/infrastructure/infrastructure.dart';
+import 'package:teslo_app/features/shared/infrastructure/services/key_value_storage_service.dart';
+import 'package:teslo_app/features/shared/infrastructure/services/key_value_storage_service_impl.dart';
 
 import '../../domain/domain.dart';
 
 final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
 
   final authRepository = AuthRepositoryImpl();
+  final keyValueStorageService = KeyValueStorageServiceImpl();
+
   return AuthNotifier(
-    authRepository: authRepository
+    authRepository: authRepository,
+    keyValueStorageService: keyValueStorageService
   );
 });
 
 class AuthNotifier extends StateNotifier<AuthState> {
 
   final AuthRepository authRepository;
+  final KeyValueStorageService keyValueStorageService;
 
   AuthNotifier({
-    required this.authRepository
+    required this.authRepository,
+    required this.keyValueStorageService,
   }): super( AuthState() );
 
   Future<void> loginUser(String email, String password) async {
@@ -50,12 +57,13 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
   }
 
-  _setLoggedUser(User user){
-    //TODO: Guardar el token en el dispositivo
+  _setLoggedUser(User user) async{
+    await keyValueStorageService.setKeyValue('token', user.token);
 
     state = state.copyWith(
       user: user,
       authStatus: AuthStatus.authenticated,
+      errorMessage: '',
     );
   }
 
@@ -64,11 +72,12 @@ class AuthNotifier extends StateNotifier<AuthState> {
   }
 
   Future<void> logout(String? errorMessage) async {
-    //TODO: Limpiar el token del dispositivo
+    await keyValueStorageService.removeKey('token');
+
     state = state.copyWith(
       user: null,
       authStatus: AuthStatus.notAuthenticated,
-      erroMessage: errorMessage
+      errorMessage: errorMessage
     );
   }
   
@@ -78,22 +87,22 @@ enum AuthStatus { checking, authenticated, notAuthenticated }
 class AuthState{
   final AuthStatus authStatus;
   final User? user;
-  final String erroMessage;
+  final String errorMessage;
 
   AuthState({
     this.authStatus = AuthStatus.checking, 
     this.user, 
-    this.erroMessage = ''
+    this.errorMessage = ''
     });
 
   AuthState copyWith({
     AuthStatus? authStatus,
     User? user,
-    String? erroMessage
+    String? errorMessage
   }) => AuthState(
     authStatus: authStatus ?? this.authStatus,
     user: user ?? this.user,
-    erroMessage: erroMessage ?? this.erroMessage
+    errorMessage: errorMessage ?? this.errorMessage
   );
   
 }
