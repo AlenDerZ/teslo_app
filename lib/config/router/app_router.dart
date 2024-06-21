@@ -1,22 +1,26 @@
 import 'package:go_router/go_router.dart';
-import 'package:teslo_app/features/auth/presentation/screens/login_screen.dart';
-import 'package:teslo_app/features/auth/presentation/screens/register_screen.dart';
-import 'package:teslo_app/features/products/presentation/screens/products_screen.dart';
+import 'package:teslo_app/features/auth/auth.dart';
+import 'package:teslo_app/features/products/products.dart';
 
 final appRouter = GoRouter(
-  initialLocation: '/login',
+  initialLocation: '/splash',
   routes: [
 
+    //* Primera Pantalla
+    GoRoute(  
+      path: '/splash',
+      builder: (context, state) => const CheckAuthStatusScreen(),
+    ),
     //* Auth Routes
     GoRoute(
       path: '/login',
       builder: (context, state) => const LoginScreen(),
     ),
+    //*Register Routes
     GoRoute(
       path: '/register',
       builder: (context, state) => const RegisterScreen(),
     ),
-
     //*Product Routes
     GoRoute(
       path: '/products',
