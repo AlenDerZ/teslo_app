@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:teslo_app/features/auth/auth.dart';
+import 'package:teslo_app/features/auth/presentation/providers/auth_provider.dart';
 import 'package:teslo_app/features/products/products.dart';
 
 import 'app_router_notifier.dart';
@@ -10,7 +11,7 @@ final goRouterProvider = Provider((ref){
   final goRouterNotifier = ref.read(GoRouterNotifierProvider);
 
   return GoRouter(
-    initialLocation: '/login',
+    initialLocation: '/splash',
     refreshListenable: goRouterNotifier,
     routes: [
 
@@ -37,7 +38,23 @@ final goRouterProvider = Provider((ref){
     ],
     
     redirect: (context, state) {
-      print(state.matchedLocation);
+      final isGoingTo = state.matchedLocation;
+      final authStatus = goRouterNotifier.authStatus;
+
+      if(isGoingTo == '/splash' && authStatus == AuthStatus.checking) return null;
+      
+      if(authStatus == AuthStatus.notAuthenticated){
+        if(isGoingTo == '/login' || isGoingTo == '/register') return null;
+
+        return '/login';
+      }
+
+      if(authStatus == AuthStatus.authenticated){
+        if(isGoingTo == '/login' || isGoingTo == '/register' || isGoingTo == '/splash'){
+          return '/products';
+        }
+      }
+
       return null;
     },
   );
