@@ -31,7 +31,7 @@ class ProductsDatasourcesImpl extends ProductsDatasource {
 
   @override
   Future<List<Products>> getProductsByPage({int limit = 10, int offset = 0}) async {
-    final response = await dio.get<List>('/api/products?limit=$limit&offset=$offset');
+    final response = await dio.get<List>('/products?limit=$limit&offset=$offset');
     final List<Products> products = [];
 
     for (var product in response.data ?? []) {
