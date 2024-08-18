@@ -35,6 +35,12 @@ final goRouterProvider = Provider((ref){
         path: '/products',
         builder: (context, state) => const ProductsScreen(),
       ),
+      GoRoute(
+        path: '/products/:id',
+        builder: (context, state) => ProductScreen(
+          productId: state.pathParameters['id'] ?? 'no-id',
+        ),
+      ),
     ],
     
     redirect: (context, state) {
