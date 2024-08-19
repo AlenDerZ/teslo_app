@@ -1,3 +1,4 @@
-export 'package:teslo_app/features/products/infrastructure/datasources/products_datasources_impl.dart';
-export 'package:teslo_app/features/products/infrastructure/repositories/products_repository_impl.dart';
-export 'package:teslo_app/features/products/infrastructure/mappers/product_mapper.dart';
+export 'datasources/products_datasources_impl.dart';
+export 'repositories/products_repository_impl.dart';
+export 'mappers/product_mapper.dart';
+export 'errors/product_errors.dart';

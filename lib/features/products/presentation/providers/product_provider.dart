@@ -3,7 +3,7 @@ import 'package:teslo_app/features/products/domain/domain.dart';
 
 import 'product_repository_provider.dart';
 
-final productProvider = StateProvider.autoDispose.family<ProductNotifier, String>(
+final productProvider = StateNotifierProvider.autoDispose.family<ProductNotifier, ProductState, String>(
   (ref, productId) {
 
     final productRepository = ref.watch(productRepositoryProvider);
@@ -21,9 +21,24 @@ class ProductNotifier extends StateNotifier<ProductState> {
   ProductNotifier({
     required this.productsRepository,
     required String productId
-  }): super( ProductState(id: productId));
+  }): super( ProductState(id: productId)){
+    loadProduct();
+  }
 
   Future<void> loadProduct() async{
+
+    try{
+
+      final product = await productsRepository.getProductsById(state.id);
+
+      state = state.copyWith(
+        isLoading: false,
+        product: product
+      );
+
+    }catch(e){
+      print('Error $e');
+    }
     
   }
 }
