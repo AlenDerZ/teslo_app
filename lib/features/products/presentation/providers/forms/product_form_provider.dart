@@ -124,7 +124,7 @@ class productFormNotifier extends StateNotifier<ProductFormState> {
     _touchedEverthing();
     if(!state.isFormValid) return false;
 
-    if(onSubmitCallback == null)  return false;
+    // if(onSubmitCallback == null)  return false;
 
     final productLike = {
       "id": state.id,
