@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:teslo_app/features/auth/presentation/providers/auth_provider.dart';
 
-final GoRouterNotifierProvider = Provider((ref) {
+final goRouterNotifierProvider = Provider((ref) {
 
   final authNotifier = ref.read(authProvider.notifier);
   return GoRouterNotifier(authNotifier);

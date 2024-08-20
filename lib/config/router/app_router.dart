@@ -8,7 +8,7 @@ import 'app_router_notifier.dart';
 
 final goRouterProvider = Provider((ref){
 
-  final goRouterNotifier = ref.read(GoRouterNotifierProvider);
+  final goRouterNotifier = ref.read(goRouterNotifierProvider);
 
   return GoRouter(
     initialLocation: '/splash',
