@@ -29,7 +29,11 @@ class ProductScreen extends ConsumerWidget {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Editar Producto'),
+          title: Text(
+              productId == 'new' 
+                ? 'Crear Producto' 
+                : 'Editar Producto'
+            ),
           actions: [
             IconButton(
               onPressed: (){}, 
@@ -82,7 +86,9 @@ class _ProductView extends ConsumerWidget {
 
     return ListView(
       children: [
-    
+          
+          const SizedBox( height: 10 ),
+
           SizedBox(
             height: 250,
             width: 600,
