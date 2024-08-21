@@ -74,6 +74,9 @@ class ProductScreen extends ConsumerWidget {
             ).onFormSubmit()
             .then((value) {
               if(!value) return;
+
+              if(!context.mounted) return;
+              
               showSnackbar(
                 context,
                 productId == 'new' 
