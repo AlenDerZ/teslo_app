@@ -46,8 +46,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
     Future.delayed(const Duration(milliseconds: 500));
 
     try{
-      final user = await authRepository.register(fullName, email, password);
-      _setRegisterUser(user);
+      await authRepository.register(fullName, email, password);
+      // _setRegisterUser(user);
     }on CustomError catch (e) {
       logout(e.message);
     }catch(e){
@@ -78,9 +78,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
     );
   }
 
-  _setRegisterUser(User user){
-    //TODO: Pasar a la pagina login
-  }
+  // _setRegisterUser(User user){
+  // }
 
   Future<void> logout(String? errorMessage) async {
     await keyValueStorageService.removeKey('token');

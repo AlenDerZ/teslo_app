@@ -8,7 +8,7 @@ import 'app_router_notifier.dart';
 
 final goRouterProvider = Provider((ref){
 
-  final goRouterNotifier = ref.read(GoRouterNotifierProvider);
+  final goRouterNotifier = ref.read(goRouterNotifierProvider);
 
   return GoRouter(
     initialLocation: '/splash',
@@ -34,6 +34,12 @@ final goRouterProvider = Provider((ref){
       GoRoute(
         path: '/products',
         builder: (context, state) => const ProductsScreen(),
+      ),
+      GoRoute(
+        path: '/products/:id',
+        builder: (context, state) => ProductScreen(
+          productId: state.pathParameters['id'] ?? 'no-id',
+        ),
       ),
     ],
     
